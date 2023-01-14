@@ -1,18 +1,17 @@
-//code is mine, I've made it refactored by chatGpt
 class Solution {
 public:
 int countPaths(int num_of_city, vector<vector<int>>& roads) {
     // Create a priority queue to store the time and node
-    priority_queue< pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> >pq;
+    priority_queue< pair<long long  ,long long>, vector<pair<long long  ,long long>>, greater<pair<long long  ,long long>> >pq;
     
     // Push the starting node with time 0
     pq.push({0, 0});
 
     // Declare a vector 'num_of_ways' to store the number of ways to reach each node
-    vector<int>num_of_ways(num_of_city, 0);
+    vector<long long>num_of_ways(num_of_city, 0);
     
     // Declare a vector 'min_time' to store the minimum time to reach each node
-    vector<int>min_time(num_of_city, int(1e9+50000000));
+    vector<long long>min_time(num_of_city, LONG_MAX);
     
     // Set the initial time to 0
     min_time[0] = 0;
@@ -40,19 +39,19 @@ int countPaths(int num_of_city, vector<vector<int>>& roads) {
         auto it = pq.top(); pq.pop();
         
         // Get the node
-        int node = it.second;
+        long long node = it.second;
         
         // Get the time
-        int time = it.first;
+        long long time = it.first;
 
         // Iterate through the adjacent nodes
         for(auto iter: adj[node])
         {
             // Get the adjacent node
-            int adjnode = iter.first;
+            long long adjnode = iter.first;
             
             // Get the time
-            int time_to_adjnode = iter.second;
+            long long time_to_adjnode = iter.second;
 
             // If the new time is less than the current minimum time to reach the adjacent node
             if(time + time_to_adjnode < min_time[adjnode])
